@@ -11,8 +11,12 @@ namespace DB
     public class Stock
     {
         [Key]        
-        public int StockTicker { get; set; }
+        public string StockTicker { get; set; }
+        [Required]
+        [Range(1, Int32.MaxValue)]       
         public int Quantity { get; set; }
-        public int LoginToken { get; set; }
+        [Required]
+        [RegularExpression(@"^\$?\d+(\.(\d{2}))?$")]
+        public decimal Price { get; set; }
     }
 }
