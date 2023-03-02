@@ -1,4 +1,5 @@
 ﻿using DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace BackendPrub.Controllers
-{
+{    
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

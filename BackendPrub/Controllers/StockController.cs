@@ -1,4 +1,5 @@
 ﻿using DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace BackendPrub.Controllers
             return Ok(stock);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(Stock stock)
         {            
