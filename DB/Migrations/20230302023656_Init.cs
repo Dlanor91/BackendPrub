@@ -4,7 +4,7 @@
 
 namespace DB.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
