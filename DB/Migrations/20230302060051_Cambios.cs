@@ -4,22 +4,28 @@
 
 namespace DB.Migrations
 {
-    public partial class Changes : Migration
+    public partial class Cambios : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Stock",
+                table: "Stock");
+
+            migrationBuilder.DropColumn(
+                name: "StockTicker",
+                table: "Stock");
+
             migrationBuilder.DropColumn(
                 name: "LoginToken",
                 table: "Stock");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "StockTicker",
+            migrationBuilder.AddColumn<string>(
+                name: "StockId",
                 table: "Stock",
                 type: "nvarchar(450)",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
+                defaultValue: "");
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Price",
@@ -27,21 +33,33 @@ namespace DB.Migrations
                 type: "decimal(18,2)",
                 nullable: false,
                 defaultValue: 0m);
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Stock",
+                table: "Stock",
+                column: "StockId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Stock",
+                table: "Stock");
+
+            migrationBuilder.DropColumn(
+                name: "StockId",
+                table: "Stock");
+
             migrationBuilder.DropColumn(
                 name: "Price",
                 table: "Stock");
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.AddColumn<int>(
                 name: "StockTicker",
                 table: "Stock",
                 type: "int",
                 nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)")
+                defaultValue: 0)
                 .Annotation("SqlServer:Identity", "1, 1");
 
             migrationBuilder.AddColumn<int>(
@@ -50,6 +68,11 @@ namespace DB.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Stock",
+                table: "Stock",
+                column: "StockTicker");
         }
     }
 }

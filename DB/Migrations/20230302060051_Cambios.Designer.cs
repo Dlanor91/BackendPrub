@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB.Migrations
 {
     [DbContext(typeof(DevTestDBContext))]
-    [Migration("20230302043622_Changes")]
-    partial class Changes
+    [Migration("20230302060051_Cambios")]
+    partial class Cambios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace DB.Migrations
 
             modelBuilder.Entity("DB.Stock", b =>
                 {
-                    b.Property<string>("StockTicker")
+                    b.Property<string>("StockId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
@@ -34,7 +34,7 @@ namespace DB.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("StockTicker");
+                    b.HasKey("StockId");
 
                     b.ToTable("Stock", (string)null);
                 });

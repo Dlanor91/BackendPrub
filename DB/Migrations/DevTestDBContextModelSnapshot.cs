@@ -23,7 +23,7 @@ namespace DB.Migrations
 
             modelBuilder.Entity("DB.Stock", b =>
                 {
-                    b.Property<string>("StockTicker")
+                    b.Property<string>("StockId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
@@ -32,7 +32,7 @@ namespace DB.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("StockTicker");
+                    b.HasKey("StockId");
 
                     b.ToTable("Stock", (string)null);
                 });

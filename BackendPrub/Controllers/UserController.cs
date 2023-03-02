@@ -34,7 +34,6 @@ namespace BackendPrub.Controllers
             if (user is null)
                 return NotFound();
             return Ok(user);
-
         }
         
         [HttpGet("/users/{UserName}/{Password}")]        
@@ -51,13 +50,13 @@ namespace BackendPrub.Controllers
 
         [HttpPost]
         public IActionResult Create(User user)
-        {
-            
+        {            
             user.Password = sha256_hash(user.Password);
             _context.Add(user);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id= user.UserId},user);
         }
+
         public static String sha256_hash(string value)
         {
             StringBuilder Sb = new StringBuilder();
