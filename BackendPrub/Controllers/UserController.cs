@@ -22,8 +22,9 @@ namespace BackendPrub.Controllers
         {
             _context = context;
             this.config = config;
-        }              
-        
+        }
+
+        //Get Method for Login Action with 2 parameters Username and Password
         [HttpGet("{UserName}/{Password}")]        
         public ActionResult<User> GetByLogin(string UserName, string Password)
         {            
@@ -36,6 +37,7 @@ namespace BackendPrub.Controllers
 
         }
 
+        //Post Method for create a New User
         [HttpPost]
         public IActionResult Create(User user)
         {            
@@ -45,6 +47,8 @@ namespace BackendPrub.Controllers
             return Ok();
         }
 
+        //Private Hash and Token Functions
+        #region privateFunctions
         private static String sha256_hash(string value)
         {
             StringBuilder Sb = new StringBuilder();
@@ -80,5 +84,6 @@ namespace BackendPrub.Controllers
             string token = new JwtSecurityTokenHandler().WriteToken(securityToken);
             return token;
         }
+        #endregion
     }
 }

@@ -17,9 +17,11 @@ namespace BackendPrub.Controllers
             _context = context;            
         }
 
+        //Get Method to display the all products in my bd
         [HttpGet]
         public IEnumerable<Stock> Get() => _context.Stocks.ToList();
-        
+
+        //Put Method to insert a new product in my bd with a token in the parameter
         [HttpPut]
         public IActionResult Create(Stock stock,string token)
         {
@@ -27,13 +29,14 @@ namespace BackendPrub.Controllers
             string id = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
             if (id == null)
                 return NotFound();
-            stock.StockId = Guid.NewGuid().ToString();
-            stock.UserId = Int32.Parse(id);
+            stock.StockId = Guid.NewGuid().ToString();//Create a Id in a letter format
+            stock.UserId = Int32.Parse(id); //Extract the id from the token
             _context.Add(stock);
             _context.SaveChanges();
             return Ok();
         }
-                
+
+        //Post Method to find all products with the id used in the token
         [HttpPost]
         public ActionResult<Stock> ResultByUser(string token)
         {
