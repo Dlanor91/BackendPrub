@@ -74,7 +74,7 @@ namespace BackendPrub.Controllers
 
             var securityToken = new JwtSecurityToken(
                                     claims: claims,
-                                    expires: DateTime.Now.AddMinutes(1),
+                                    expires: DateTime.UtcNow.AddMinutes(1),
                                     signingCredentials:creds
                                     );
             string token = new JwtSecurityTokenHandler().WriteToken(securityToken);
