@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackendPrub.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/stocks/")]
     [ApiController]
     public class StockController : ControllerBase
     {
@@ -17,26 +17,26 @@ namespace BackendPrub.Controllers
             _context = context;            
         }
 
-        [HttpGet]        
+        [HttpGet]
         public IEnumerable<Stock> Get() => _context.Stocks.ToList();
 
-        [HttpGet("{id}")]
-        public ActionResult<User> GetById(int id)
-        {
-            var stock = _context.Stocks.Find(id);
-            if (stock is null)
-                return NotFound();
-            return Ok(stock);
-        }
-
         [Authorize]
-        [HttpPost]
+        [HttpPut]
         public IActionResult Create(Stock stock)
         {            
             stock.StockId = Guid.NewGuid().ToString();
             _context.Add(stock);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetById), new { id = stock.StockId }, stock);
-        }       
+            return Ok();
+        }
+        /*
+        [Authorize]
+        [HttpPost]
+        public IActionResult Hacer(Stock stock)
+        {            
+            _context.Add(stock);
+            _context.SaveChanges();
+            return Ok();
+        }*/
     }
 }

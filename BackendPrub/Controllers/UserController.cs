@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BackendPrub.Controllers
 {    
-    [Route("api/[controller]")]
+    [Route("api/stocks/")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -22,22 +22,9 @@ namespace BackendPrub.Controllers
         {
             _context = context;
             this.config = config;
-        }
-
-
-        [HttpGet]
-        public IEnumerable<User> Get() => _context.Users.ToList();
-
-        [HttpGet("{id}")]
-        public ActionResult<User> GetById(int id)
-        {
-            var user = _context.Users.Find(id);
-            if (user is null)
-                return NotFound();
-            return Ok(user);
-        }
+        }              
         
-        [HttpGet("/users/{UserName}/{Password}")]        
+        [HttpGet("{UserName}/{Password}")]        
         public ActionResult<User> GetByLogin(string UserName, string Password)
         {            
             Password = sha256_hash(Password);
@@ -55,10 +42,10 @@ namespace BackendPrub.Controllers
             user.Password = sha256_hash(user.Password);
             _context.Add(user);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetById), new { id= user.UserId},user);
+            return Ok();
         }
 
-        public static String sha256_hash(string value)
+        private static String sha256_hash(string value)
         {
             StringBuilder Sb = new StringBuilder();
 
