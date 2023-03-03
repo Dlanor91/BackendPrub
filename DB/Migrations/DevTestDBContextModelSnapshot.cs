@@ -36,7 +36,12 @@ namespace DB.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("StockId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Stock", (string)null);
                 });
@@ -64,6 +69,22 @@ namespace DB.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("DB.Stock", b =>
+                {
+                    b.HasOne("DB.User", "User")
+                        .WithMany("Stocks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DB.User", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace BackendPrub.Controllers
 {    
-    [Route("api/stocks/")]
+    [Route("api/stocks/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {

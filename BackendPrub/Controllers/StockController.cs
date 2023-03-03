@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackendPrub.Controllers
 {
-    [Route("api/stocks/")]
+    [Route("api/stocks/[controller]")]
     [ApiController]
     public class StockController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace BackendPrub.Controllers
             _context.SaveChanges();
             return Ok();
         }
-        /*
+        
         [Authorize]
         [HttpPost]
         public IActionResult Hacer(Stock stock)
@@ -37,6 +37,6 @@ namespace BackendPrub.Controllers
             _context.Add(stock);
             _context.SaveChanges();
             return Ok();
-        }*/
+        }
     }
 }

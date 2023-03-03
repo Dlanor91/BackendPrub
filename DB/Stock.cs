@@ -20,6 +20,9 @@ namespace DB
         [Range(1, Int32.MaxValue)]       
         public int Quantity { get; set; }
         [Required]        
-        public decimal Price { get; set; }
+        public decimal Price { get; set; }        
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
 }
