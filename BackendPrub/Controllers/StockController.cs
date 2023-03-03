@@ -25,6 +25,8 @@ namespace BackendPrub.Controllers
         {
             var jwtToken = new JwtSecurityToken(token);
             string id = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+            if (id == null)
+                return NotFound();
             stock.StockId = Guid.NewGuid().ToString();
             stock.UserId = Int32.Parse(id);
             _context.Add(stock);
@@ -33,13 +35,15 @@ namespace BackendPrub.Controllers
         }
                 
         [HttpPost]
-        public IEnumerable<Stock> ResultByUser(string token)
+        public ActionResult<Stock> ResultByUser(string token)
         {
             var jwtToken = new JwtSecurityToken(token);
             string id = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
-            int idUser = Int32.Parse(id);
+            if (id == null)
+                return NotFound();
+            int idUser = Int32.Parse(id);            
             IEnumerable<Stock> result = _context.Stocks.Where(obj => obj.UserId == idUser);
-            return result;
+            return Ok(result);
         }
     }
 }
