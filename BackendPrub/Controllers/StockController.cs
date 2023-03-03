@@ -19,8 +19,7 @@ namespace BackendPrub.Controllers
 
         [HttpGet]
         public IEnumerable<Stock> Get() => _context.Stocks.ToList();
-
-        [Authorize]
+        
         [HttpPut]
         public IActionResult Create(Stock stock,string token)
         {
@@ -32,14 +31,15 @@ namespace BackendPrub.Controllers
             _context.SaveChanges();
             return Ok();
         }
-        
-        [Authorize]
+                
         [HttpPost]
-        public IActionResult Hacer(Stock stock)
-        {            
-            _context.Add(stock);
-            _context.SaveChanges();
-            return Ok();
+        public IEnumerable<Stock> ResultByUser(string token)
+        {
+            var jwtToken = new JwtSecurityToken(token);
+            string id = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+            int idUser = Int32.Parse(id);
+            IEnumerable<Stock> result = _context.Stocks.Where(obj => obj.UserId == idUser);
+            return result;
         }
     }
 }
