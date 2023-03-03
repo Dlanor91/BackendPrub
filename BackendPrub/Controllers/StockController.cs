@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BackendPrub.Controllers
 {
@@ -22,9 +22,12 @@ namespace BackendPrub.Controllers
 
         [Authorize]
         [HttpPut]
-        public IActionResult Create(Stock stock)
-        {            
+        public IActionResult Create(Stock stock,string token)
+        {
+            var jwtToken = new JwtSecurityToken(token);
+            string id = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
             stock.StockId = Guid.NewGuid().ToString();
+            stock.UserId = Int32.Parse(id);
             _context.Add(stock);
             _context.SaveChanges();
             return Ok();

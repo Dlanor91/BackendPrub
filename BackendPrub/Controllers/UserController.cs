@@ -64,9 +64,9 @@ namespace BackendPrub.Controllers
         private string GenerateToken(User user) 
         {
             var claims = new[]
-            {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
+            {                
+                new Claim("id",user.UserId.ToString()),
+                new Claim(ClaimTypes.Name,user.UserName)                
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JWT:Key").Value));

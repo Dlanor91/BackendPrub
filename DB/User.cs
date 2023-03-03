@@ -20,7 +20,6 @@ namespace DB
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-
-        public ICollection<Stock> Stocks { get; set; }
+        
     }
 }
