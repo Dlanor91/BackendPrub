@@ -37,7 +37,6 @@ namespace BackendPrub.Controllers
             _context.Add(stock);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = stock.StockId }, stock);
-        }
-
+        }       
     }
 }
